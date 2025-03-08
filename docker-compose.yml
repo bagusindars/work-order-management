@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: work-order-management-app
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:80"
+    networks:
+      - wom_network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    restart: always
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: work-order-management
+    ports:
+      - "5433:5432"
+    networks:
+      - wom_network
+
+networks:
+  wom_network:
+    driver: bridge
