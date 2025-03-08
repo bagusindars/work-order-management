@@ -31,6 +31,19 @@ services:
     networks:
       - wom_network
 
+  web:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - wom_network
 networks:
   wom_network:
     driver: bridge

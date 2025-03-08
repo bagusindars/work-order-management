@@ -15,6 +15,10 @@ RUN docker-php-ext-install pdo_pgsql
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+    
 # Copy project files
 WORKDIR /var/www/html
 COPY . .
