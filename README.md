@@ -1,66 +1,110 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Application Setup Guide
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Prerequisites
 
-## About Laravel
+### General Requirements
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP Version 8.2 or higher
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel Version: 11
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Node.js: 18 or higher
 
-## Learning Laravel
+- Composer: 2.x
+ 
+- Postgress 16 or higher
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Docker Requirements (Opsional)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Docker: 27.x or higher
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Docker Compose: 2.x or higher
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 1. Running without Docker
+- Clone the repository: <br>
+<code>git clone git@github.com:bagusindars/work-order-management.git</code>
+- Install PHP and Composer:
+Ensure PHP (version 8.3 or higher) and Composer are installed on your system.
+- Install Node js:
+Ensure Node.js (version 18 or higher) is installed on your system.
+- In the root project, Copy **.env** file <br>
+<code>cp .env.example .env</code>
+- Create your database (ex: work-order-management)
+- Open .env file and setup the database<br>
+<code> DB_CONNECTION=pgsql
+    DB_HOST=localhost
+    DB_PORT=5432
+    DB_DATABASE=work-order-management # (your db name)
+    DB_USERNAME=postgres # (your postgress username)
+    DB_PASSWORD=password # (your postgress password)
+</code>
+- Install dependencies:
+<code>
+composer install
+npm install
+</code>
+- Set application key: <br>
+<code>php artisan key:generate</code>
+- Run migrations & Seeder: <br>
+<code>php artisan migrate --seed</code>
+- Build the asset: <br>
+<code>npm run build</code>
+- Start the development server: <br>
+<code>php artisan serve</code>
+- Access the application:
+The application will be available at http://localhost:8000
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+## 2. Running with docker
+- Clone the repository: <br>
+<code>git clone git@github.com:bagusindars/work-order-management.git</code>
+- In the root project, Copy **.env** file <br>
+<code>cp .env.example .env</code>
+- Open .env file and setup the database based on docker compose<br>
+<code> DB_CONNECTION=pgsql
+    DB_HOST=db # docker compose container
+    DB_PORT=5432
+    DB_DATABASE=work-order-management # docker compose db name
+    DB_USERNAME=postgres # docker compose username
+    DB_PASSWORD=password # docker compose password name
+</code>
+- Build the container<br>
+<code>docker-compose build</code>
+- Start the container<br>
+<code>docker-compose up -d</code>
+- Access the application container<br>
+<code>docker exec -it work-order-management-app bash</code>
+- Install dependencies:
+<code>
+composer install
+npm install
+</code>
+- Set application key: <br>
+<code>php artisan key:generate</code>
+- Run migrations & Seeder: <br>
+<code>php artisan migrate --seed</code>
+- Build the asset: <br>
+<code>npm run build</code>
+- Start the development server: <br>
+<code>php artisan serve</code>
+- Access the application:
+The application will be available at http://localhost:8081
+### You don't have to access application container first (bash)
+you can run the artisan command with:<br>
+<code>docker exec -it work-order-management-app {your command}</code> <br>
+ex <code>docker exec -it work-order-management-app php artisan serve</code>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Access
+to enter the dashboard we are already running the seeder. Based from the user seeder the defaul user information are
+#### Production Manager
+email : pm@gmail.com <br>
+password : 12345678
+#### Operator 1
+email : operator1@gmail.com <br>
+password : 12345678
+#### Operator 2
+email : operator2@gmail.com <br>
+password : 12345678
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
